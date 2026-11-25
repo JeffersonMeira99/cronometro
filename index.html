@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contagem regressiva · 04/01</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Faltam para</p>
+    <h1 id="alvo">04 de janeiro</h1>
+
+    <div class="grid">
+      <div class="box"><span id="dias">0</span><small>dias</small></div>
+      <div class="box"><span id="horas">00</span><small>horas</small></div>
+      <div class="box"><span id="minutos">00</span><small>minutos</small></div>
+      <div class="box"><span id="segundos">00</span><small>segundos</small></div>
+      <div class="box ms"><span id="ms">000</span><small>milissegundos</small></div>
+    </div>
+
+    <p id="fim" class="fim" hidden>Chegou o dia! 🎉</p>
+  </main>
+
+  <script>
+    // Alvo: próximo 04/01 à meia-noite (horário local)
+    const agora = new Date();
+    let ano = agora.getFullYear();
+    let alvo = new Date(ano, 0, 4, 0, 0, 0, 0);
+    if (alvo <= agora) alvo = new Date(ano + 1, 0, 4, 0, 0, 0, 0);
+
+    document.getElementById('alvo').textContent =
+      '04 de janeiro de ' + alvo.getFullYear();
+
+    const el = id => document.getElementById(id);
+    const pad = (n, t = 2) => String(n).padStart(t, '0');
+
+    function tick() {
+      let diff = alvo - Date.now();
+      if (diff <= 0) {
+        ['dias','horas','minutos','segundos','ms'].forEach(id => el(id).textContent = '0');
+        el('fim').hidden = false;
+        return;
+      }
+      const dias = Math.floor(diff / 86400000); diff %= 86400000;
+      const horas = Math.floor(diff / 3600000); diff %= 3600000;
+      const min = Math.floor(diff / 60000);     diff %= 60000;
+      const seg = Math.floor(diff / 1000);
+      const ms = diff % 1000;
+
+      el('dias').textContent = dias;
+      el('horas').textContent = pad(horas);
+      el('minutos').textContent = pad(min);
+      el('segundos').textContent = pad(seg);
+      el('ms').textContent = pad(ms, 3);
+
+      requestAnimationFrame(tick);
+    }
+    tick();
+  </script>
+</body>
+</html>
