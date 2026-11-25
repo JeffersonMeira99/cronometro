@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contagem regressiva · 04/01</title>
+  <title>Contagem regressiva · 31/12</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
     <p class="eyebrow">Faltam para</p>
-    <h1 id="alvo">04 de janeiro</h1>
+    <h1 id="alvo">31 de dezembro</h1>
 
     <div class="grid">
       <div class="box"><span id="dias">0</span><small>dias</small></div>
@@ -23,14 +23,14 @@
   </main>
 
   <script>
-    // Alvo: próximo 04/01 à meia-noite (horário local)
+    // Alvo: próximo 31/12 à meia-noite (horário local)
     const agora = new Date();
     let ano = agora.getFullYear();
-    let alvo = new Date(ano, 0, 4, 0, 0, 0, 0);
-    if (alvo <= agora) alvo = new Date(ano + 1, 0, 4, 0, 0, 0, 0);
+    let alvo = new Date(ano, 11, 31, 0, 0, 0, 0);
+    if (alvo <= agora) alvo = new Date(ano + 1, 11, 31, 0, 0, 0, 0);
 
     document.getElementById('alvo').textContent =
-      '04 de janeiro de ' + alvo.getFullYear();
+      '31 de dezembro de ' + alvo.getFullYear();
 
     const el = id => document.getElementById(id);
     const pad = (n, t = 2) => String(n).padStart(t, '0');
